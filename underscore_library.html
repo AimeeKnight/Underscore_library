@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Underscore Library</title>
+      <link rel="stylesheet" href="#">
+      <link rel="author" href="humans.txt">
+  </head>
+  <body>
+
+  	<h2>Library Books:</h2>
+  	<div id="library">
+  		<script id="bookTempl" type="text/template">
+    		<p>Title: <%= title %><p>
+    		<p>Author: <%= author %><p>
+    		<p>Status: <%= status %></p>      		
+    	</script>
+
+  	</div>
+
+		<form id="add">
+			<h4>Add a New Book</h4>
+				<label>Book Title:</label>
+				<input name="title" id="title" type="text">
+				<label>Book Author:</label>
+				<input name="author" id="author" type="text">
+<!-- 		<label>Available For Checkout?</label>
+				<input id="available" type="checkbox" checked="checked"> -->
+				<input type="submit" value="submit" id="submit">
+		</form>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/underscorejs/1.5.2/underscore-min.js"></script>
+    <script type="text/javascript">
+    	var books = [
+    		{
+    			title: "Beginning Ruby",
+    			author: "Peter Cooper",
+    			status: "available" 
+    		},
+    		{
+    			title: "Eloquent Javascript",
+    			author: "Marijn Haverbeke",
+    			status: "available"
+    		},
+    		{
+    			title: "Rails Tutorial",
+    			author: "Michael Hartl",
+    			status: "available"
+    		},
+    		{
+    			title: "Professional JavaScript for Web Developers",
+    			author: "Nicholas Zakas",
+    			status: "available"
+    		}
+    	];
+
+    	var bookTemplHTML = $("#bookTempl").html();
+    	var bookTempl = _.template(bookTemplHTML);
+
+    	_.each(books, function(book) {
+    		var libBook = bookTempl(book)
+    		$("#library").append(libBook);
+    	});
+
+    	$("#submit").click(function(e){
+    		e.preventDefault();
+    		var newBook = {
+    			title: $("#title").val(),
+    			author: $("#author").val(),
+    			status: "available"
+    		};
+
+    		books.push(newBook);
+    		var libBook = bookTempl(newBook)
+    		$("#library").append(libBook);
+    	});
+
+    </script>
+  </body>
+</html>
